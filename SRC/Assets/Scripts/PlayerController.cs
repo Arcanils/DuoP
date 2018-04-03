@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour {
 
 	private Vector2 _aimDir;
 
+	public void Awake()
+	{
+		Target.OnShootPawn += () => Target = Target.TargetShoot;
+		Target.TargetShoot.OnShootPawn += () => Target = Target.TargetShoot;
+	}
+
 	public void Update()
 	{
 		if (Input.GetButtonDown("Jump"))

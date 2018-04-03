@@ -1043,7 +1043,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1101129092}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a852b43b3ca78d4a804ab66fd16a5ba, type: 3}
   m_Name: 
@@ -1056,7 +1056,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   ShootForce: 20
-  TargetShoot: {fileID: 0}
+  TargetShoot: {fileID: 1010360348}
   FireRate: 1
   DurationSlowMo: 0.3
   CurveSlowMo:

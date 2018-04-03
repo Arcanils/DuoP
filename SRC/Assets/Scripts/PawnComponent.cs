@@ -23,6 +23,8 @@ public class PawnComponent : MonoBehaviour {
 
 	public Rigidbody2D PawnRigid2D { get; private set; }
 
+	public Action OnShootPawn;
+
 	private Transform _trans;
 	private Transform _graphBody;
 	
@@ -99,7 +101,8 @@ public class PawnComponent : MonoBehaviour {
 
 	private void MoveLogic()
 	{
-		PawnRigid2D.velocity = _deltaMove + new Vector2(0f, PawnRigid2D.velocity.y);
+		//PawnRigid2D.velocity = _deltaMove + new Vector2(0f, PawnRigid2D.velocity.y);
+		_trans.position += new Vector3(_deltaMove.x, _deltaMove.y) * Time.fixedDeltaTime;
 		_deltaMove.Set(0f, 0f);
 	}
 
@@ -113,16 +116,6 @@ public class PawnComponent : MonoBehaviour {
 			_isGrounded = false;
 	}
 
-	private IEnumerator SlowMoShoot()
-	{
-		for (float t = 0f, perc = 0f; perc < 1f; t += Time.unscaledDeltaTime)
-		{
-			perc = Mathf.Clamp01(t / DurationSlowMo);
-			Time.timeScale = CurveSlowMo.Evaluate(perc);
-			yield return null;
-		}
-	}
-	
 	private void FireLogic()
 	{
 		_timerFire += Time.fixedDeltaTime;
@@ -162,6 +155,8 @@ public class PawnComponent : MonoBehaviour {
 		TargetShoot.transform.position = _trans.position;
 		TargetShoot.PawnRigid2D.velocity = Vector2.zero;
 
+		if (OnShootPawn != null)
+			OnShootPawn();
 		TargetShoot.PawnRigid2D.AddForce(_aimDir * ShootForce, ForceMode2D.Impulse);
 		StartCoroutine(HelperTween.ScaleEnum(TargetShoot.transform, TargetShoot.transform.localScale, Vector3.one, 0.3f,
 			AnimationCurve.EaseInOut(0f, 0f, 1f, 1f)));
