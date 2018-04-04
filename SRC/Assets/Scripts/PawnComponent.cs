@@ -37,6 +37,7 @@ public class PawnComponent : MonoBehaviour {
 	private bool _inputFire;
 	private bool _isGrounded;
 
+
 	private void Reset()
 	{
 		SpeedMove = 10f;
@@ -61,6 +62,21 @@ public class PawnComponent : MonoBehaviour {
 		if (_aimDir != Vector2.zero)
 			Gizmos.DrawLine(_trans.position, _trans.position + new Vector3(_aimDir.x, _aimDir.y) * 2f);
 	}
+
+
+	private void FixedUpdate()
+	{
+		UpdateIsGrounded();
+		JumpLogic();
+		MoveLogic();
+		FireLogic();
+	}
+
+	public void Init(PawnComponent target)
+	{
+		TargetShoot = target;
+	}
+
 	public void Move (float InputMove)
 	{
 		_deltaMove += new Vector2(InputMove * SpeedMove, 0f);
@@ -79,14 +95,6 @@ public class PawnComponent : MonoBehaviour {
 	public void FirePlayer(bool IsDown)
 	{
 		_inputFire = IsDown;
-	}
-
-	private void FixedUpdate()
-	{
-		UpdateIsGrounded();
-		JumpLogic();
-		MoveLogic();
-		FireLogic();
 	}
 
 	private void JumpLogic()
@@ -145,7 +153,6 @@ public class PawnComponent : MonoBehaviour {
 
 	private IEnumerator FireSlowMo()
 	{
-		Debug.Log("Beg slow mo");
 		Time.timeScale = 0f;
 		//Move & scale
 		StartCoroutine(HelperTween.MoveTransformEnum(TargetShoot.transform, TargetShoot.transform.position, _trans.position,
@@ -162,7 +169,6 @@ public class PawnComponent : MonoBehaviour {
 			AnimationCurve.EaseInOut(0f, 0f, 1f, 1f)));
 		yield return HelperTween.TimeScaleEnum(0f, 1f, 0.3f, AnimationCurve.EaseInOut(0f, 0f, 1f, 1f));
 		//Move & scale and timescale
-		Debug.Log("End slow mo");
 	}
 }
 

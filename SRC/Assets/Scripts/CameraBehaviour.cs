@@ -28,7 +28,16 @@ public class CameraBehaviour : MonoBehaviour {
 			posY += Targets[i].position.y;
 			++count;
 		}
+
+		if (count == 0)
+			return;
+
 		_posCamera.Set(posX / count, posY / count, _posCamera.z);
 		_trans.position = _posCamera;
+	}
+
+	public void Init(params Transform[] targets)
+	{
+		Targets = targets;
 	}
 }
