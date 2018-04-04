@@ -670,6 +670,7 @@ MonoBehaviour:
   PrefabController: {fileID: 1312086714994084, guid: d197ec1829c6e634cabb4cd5a5eb178c,
     type: 2}
   PrefabPawn: {fileID: 1643457369319108, guid: b3b691b38c25158438564767d98e2d70, type: 2}
+  Cam: {fileID: 792428748}
   CurrentMode: 0
 --- !u!4 &736890531
 Transform:
