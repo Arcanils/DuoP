@@ -13,6 +13,8 @@ public class GameplayController : MonoBehaviour
 	public GameObject PrefabController;
 	public GameObject PrefabPawn;
 
+	public Transform StartPoint;
+
 	public CameraBehaviour Cam;
 
 	public EGameplayMode CurrentMode;
@@ -43,6 +45,8 @@ public class GameplayController : MonoBehaviour
 	{
 
 		var instance = GameObject.Instantiate(PrefabPawn);
+		var transPawn = instance.transform;
+		transPawn.position = StartPoint.position;
 		instancePawn = instance.GetComponent<PawnComponent>();
 
 		instance = GameObject.Instantiate(PrefabController);

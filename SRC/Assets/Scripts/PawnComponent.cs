@@ -30,9 +30,7 @@ public class PawnComponent : MonoBehaviour {
 	
 	private Vector2 _deltaMove;
 	private Vector2 _aimDir;
-
-	private float _timerFire;
-
+	
 	private bool _inputJump;
 	private bool _inputFire;
 	private bool _isGrounded;
@@ -126,13 +124,12 @@ public class PawnComponent : MonoBehaviour {
 
 	private void FireLogic()
 	{
-		_timerFire += Time.fixedDeltaTime;
 
-		if (!_inputFire || _aimDir == Vector2.zero || _timerFire < 0f)
+		if (!_inputFire || _aimDir == Vector2.zero || !PropulsionCooldown.LaForceVeloce.HasPowerMax)
 			return;
-
-		_timerFire = -FireRate;
+		
 		_inputFire = false;
+		PropulsionCooldown.LaForceVeloce.ResetCooldown();;
 
 		//TargetShoot.MovePosition(new Vector2(_trans.position.x, _trans.position.y));
 
