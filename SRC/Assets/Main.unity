@@ -2292,7 +2292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetUi: {fileID: 1842763644}
-  Cooldown: 0.5
+  Cooldown: 0.3
 --- !u!4 &331480584
 Transform:
   m_ObjectHideFlags: 0
@@ -4468,7 +4468,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9.1
+  orthographic size: 13
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

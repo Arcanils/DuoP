@@ -153,8 +153,8 @@ public class PawnComponent : MonoBehaviour {
 		Time.timeScale = 0f;
 		//Move & scale
 		StartCoroutine(HelperTween.MoveTransformEnum(TargetShoot.transform, TargetShoot.transform.position, _trans.position,
-			0.5f, AnimationCurve.EaseInOut(0f, 0f, 1f, 1f)));
-		yield return HelperTween.ScaleEnum(TargetShoot.transform, TargetShoot.transform.localScale, Vector3.zero, 0.5f, AnimationCurve.EaseInOut(0f, 0f, 1f, 1f));
+			0.3f, AnimationCurve.EaseInOut(0f, 0f, 1f, 1f)));
+		yield return HelperTween.ScaleEnum(TargetShoot.transform, TargetShoot.transform.localScale, Vector3.zero, 0.3f, AnimationCurve.EaseInOut(0f, 0f, 1f, 1f));
 
 		TargetShoot.transform.position = _trans.position;
 		TargetShoot.PawnRigid2D.velocity = Vector2.zero;
@@ -162,7 +162,7 @@ public class PawnComponent : MonoBehaviour {
 		if (OnShootPawn != null)
 			OnShootPawn();
 		TargetShoot.PawnRigid2D.AddForce(_aimDir * ShootForce, ForceMode2D.Impulse);
-		StartCoroutine(HelperTween.ScaleEnum(TargetShoot.transform, TargetShoot.transform.localScale, Vector3.one, 0.3f,
+		StartCoroutine(HelperTween.ScaleEnum(TargetShoot.transform, TargetShoot.transform.localScale, Vector3.one, 0.2f,
 			AnimationCurve.EaseInOut(0f, 0f, 1f, 1f)));
 		yield return HelperTween.TimeScaleEnum(0f, 1f, 0.3f, AnimationCurve.EaseInOut(0f, 0f, 1f, 1f));
 		//Move & scale and timescale
