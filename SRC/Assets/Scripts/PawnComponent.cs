@@ -24,6 +24,7 @@ public class PawnComponent : MonoBehaviour {
 	public Rigidbody2D PawnRigid2D { get; private set; }
 
 	public Action OnShootPawn;
+	public GameObject FXtoSpawn;
 
 	private Transform _trans;
 	private Transform _graphBody;
@@ -54,6 +55,10 @@ public class PawnComponent : MonoBehaviour {
 			_graphBody = _trans;
 	}
 
+	private void OnDestroy()
+	{
+		GameObject.Instantiate(FXtoSpawn, _trans.position, Quaternion.identity);
+	}
 
 	public void OnDrawGizmos()
 	{

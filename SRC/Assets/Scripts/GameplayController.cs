@@ -28,11 +28,54 @@ public class GameplayController : MonoBehaviour
 	{
 		SpawnGameplay(CurrentMode);
 		Timer.text = ConverTimerToString(0f);
-		var triggers = FindObjectsOfType<FinishTrigger>();
+		var triggers = FindObjectsOfType<LogicTrigger>();
 		for (int i = 0; i < triggers.Length; i++)
 		{
-			triggers[i].OnFinishGame += FinishGame;
+			triggers[i].OnTriggerEnter += OnPlayerEnterTrigger;
 		}
+	}
+
+	private void OnPlayerEnterTrigger(LogicTrigger.EModeTrigger mode)
+	{
+		switch(mode)
+		{
+			case LogicTrigger.EModeTrigger.DEATH:
+				OnDeath();
+				break;
+			case LogicTrigger.EModeTrigger.FINISH:
+				FinishGame();
+				break;
+		}
+	}
+	private bool _animDeath;
+	private void OnDeath()
+	{
+		if (_animDeath)
+			return;
+
+		StartCoroutine(AnimDeathEnum());
+	}
+
+	private IEnumerator AnimDeathEnum()
+	{
+		_finish = true;
+		_animDeath = true;
+		var pawns = FindObjectsOfType<PawnComponent>();
+		var controllers = FindObjectsOfType<PlayerController>();
+		for (int i = 0; i < controllers.Length; i++)
+		{
+			Destroy(controllers[i].gameObject);
+		}
+		for (int i = 0; i < pawns.Length; i++)
+		{
+			Destroy(pawns[i].gameObject);
+		}
+
+		yield return new WaitForSeconds(1f);
+
+		SpawnGameplay(CurrentMode);
+		_finish = false;
+		_animDeath = false;
 	}
 
 	private void FinishGame()
