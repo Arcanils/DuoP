@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameplayController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameplayController : MonoBehaviour
 
 	public GameObject PrefabController;
 	public GameObject PrefabPawn;
+	public Text Timer;
 
 	public Transform StartPoint;
 
@@ -19,11 +21,27 @@ public class GameplayController : MonoBehaviour
 
 	public EGameplayMode CurrentMode;
 
+	private bool _finish;
+	private float _currentTimer;
+
 	public void Awake()
 	{
 		SpawnGameplay(CurrentMode);
+		Timer.text = ConverTimerToString(0f);
+		var triggers = FindObjectsOfType<FinishTrigger>();
+		for (int i = 0; i < triggers.Length; i++)
+		{
+			triggers[i].OnFinishGame += FinishGame;
+		}
 	}
 
+	private void FinishGame()
+	{
+		if (_finish)
+			return;
+
+		_finish = true;
+	}
 
 	private void SpawnGameplay(EGameplayMode mode)
 	{
@@ -51,5 +69,28 @@ public class GameplayController : MonoBehaviour
 
 		instance = GameObject.Instantiate(PrefabController);
 		instanceController = instance.GetComponent<PlayerController>();
+	}
+
+	public void Update()
+	{
+		if (_finish)
+			return;
+
+		_currentTimer += Time.unscaledDeltaTime;
+		Timer.text = ConverTimerToString(_currentTimer);
+
+	}
+
+	private static string ConverTimerToString(float time)
+	{
+		var min = (int)(time / 60f);
+
+		time -= min * 60f;
+		var sec = (int)time;
+
+		time -= sec;
+		var centiemes = (int)(time * 100f);
+
+		return min.ToString("00") + " : " + sec.ToString("00") + " : " + centiemes.ToString("00"); 
 	}
 }
