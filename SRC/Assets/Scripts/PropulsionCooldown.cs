@@ -71,4 +71,11 @@ public class PropulsionCooldown : MonoBehaviour
 	{
 		_currentTimer = -Cooldown;
 	}
+
+	public void ResetForceVeloce()
+	{
+		_routineSlow = null;
+		_routineSpeedup = null;
+		Time.timeScale = 1f;
+	}
 }

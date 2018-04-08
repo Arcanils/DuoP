@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MobilePawnComponent : MonoBehaviour {
 
 	public float ShootForce;
+	public GameObject FxDestroy;
+
+	public Action OnDeath;
 	private Rigidbody2D _pawnRigid2D;
 
 	private void Reset()
@@ -14,6 +18,13 @@ public class MobilePawnComponent : MonoBehaviour {
 	public void Awake()
 	{
 		_pawnRigid2D = GetComponent<Rigidbody2D>();
+	}
+
+	private void OnDestroy()
+	{
+		GameObject.Instantiate(FxDestroy, transform.position, Quaternion.identity);
+		if (OnDeath != null)
+			OnDeath();
 	}
 
 	public void Fire(Vector2 aim)

@@ -20,6 +20,7 @@ public class MobilePlayerController
 	public void Init(MobilePawnComponent pawn, MobileInputController input)
 	{
 		_pawn = pawn;
+		_pawn.OnDeath += PropulsionCooldown.LaForceVeloce.ResetForceVeloce;
 		_input = input;
 		_input.OnTouchSlowMo += PropulsionCooldown.LaForceVeloce.SlowDown;
 		_input.OnReleaseSlowMo += PropulsionCooldown.LaForceVeloce.SlowUp;

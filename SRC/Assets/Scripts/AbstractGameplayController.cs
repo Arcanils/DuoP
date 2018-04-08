@@ -12,7 +12,7 @@ public abstract class AbstractGameplayController : MonoBehaviour
 
 	protected bool _finish;
 	protected bool _animDeath;
-	private float _currentTimer;
+	protected float _currentTimer;
 
 	protected virtual void Start()
 	{
@@ -20,7 +20,7 @@ public abstract class AbstractGameplayController : MonoBehaviour
 		var triggers = FindObjectsOfType<LogicTrigger>();
 		for (int i = 0; i < triggers.Length; i++)
 		{
-			triggers[i].OnTriggerEnter += OnPlayerEnterTrigger;
+			triggers[i].OnTouch += OnPlayerEnterTrigger;
 		}
 		SpawnGameplay();
 	}
@@ -37,7 +37,7 @@ public abstract class AbstractGameplayController : MonoBehaviour
 	protected abstract void SpawnGameplay();
 	protected abstract IEnumerator AnimDeathEnum();
 
-	protected void FinishGame()
+	protected virtual void FinishGame()
 	{
 		if (_finish)
 			return;

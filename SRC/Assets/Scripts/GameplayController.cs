@@ -31,7 +31,7 @@ public class GameplayController : MonoBehaviour
 		var triggers = FindObjectsOfType<LogicTrigger>();
 		for (int i = 0; i < triggers.Length; i++)
 		{
-			triggers[i].OnTriggerEnter += OnPlayerEnterTrigger;
+			triggers[i].OnTouch += OnPlayerEnterTrigger;
 		}
 	}
 
@@ -84,6 +84,7 @@ public class GameplayController : MonoBehaviour
 			return;
 
 		_finish = true;
+
 	}
 
 	private void SpawnGameplay(EGameplayMode mode)
@@ -124,7 +125,7 @@ public class GameplayController : MonoBehaviour
 
 	}
 
-	private static string ConverTimerToString(float time)
+	protected static string ConverTimerToString(float time)
 	{
 		var min = (int)(time / 60f);
 

@@ -11,7 +11,7 @@ public class LogicTrigger : MonoBehaviour {
 		FINISH,
 	}
 
-	public Action<EModeTrigger> OnTriggerEnter;
+	public Action<EModeTrigger> OnTouch;
 
 	public EModeTrigger Mode;
 
@@ -20,8 +20,16 @@ public class LogicTrigger : MonoBehaviour {
 	{
 		if (collision.tag == "Player")
 		{
-			if (OnTriggerEnter != null)
-				OnTriggerEnter(Mode);
+			if (OnTouch != null)
+				OnTouch(Mode);
+		}
+	}
+	public void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.transform.tag == "Player")
+		{
+			if (OnTouch != null)
+				OnTouch(Mode);
 		}
 	}
 }
