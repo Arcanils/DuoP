@@ -12,11 +12,6 @@ public class MobilePlayerController
 		Init(pawn, input);
 	}
 
-	~MobilePlayerController()
-	{
-		Clear();
-	}
-
 	public void Init(MobilePawnComponent pawn, MobileInputController input)
 	{
 		_pawn = pawn;
